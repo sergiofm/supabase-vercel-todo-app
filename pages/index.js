@@ -57,7 +57,9 @@ export default function Home() {
 
       if (error) throw error
       
-      fetchTodos()
+      setTodos(todos.map(todo => 
+        todo.id === id ? { ...todo, is_complete: !is_complete } : todo
+      ))
     } catch (error) {
       alert('Error updating todo: ' + error.message)
     }
@@ -66,18 +68,13 @@ export default function Home() {
   // Delete a todo
   async function deleteTodo(id) {
     try {
-      console.log('Deleting todo with ID:', id)
-
-      const { data, error } = await supabase
+      const { error } = await supabase
         .from('todos')
         .delete()
         .eq('id', id)
 
-      console.log({ data, error })
-
       if (error) throw error
-
-      fetchTodos()
+      setTodos(todos.filter(todo => todo.id !== id))
     } catch (error) {
       alert('Error deleting todo: ' + error.message)
     }

@@ -66,13 +66,17 @@ export default function Home() {
   // Delete a todo
   async function deleteTodo(id) {
     try {
-      const { error } = await supabase
+      console.log('Deleting todo with ID:', id)
+
+      const { data, error } = await supabase
         .from('todos')
         .delete()
         .eq('id', id)
 
+      console.log({ data, error })
+
       if (error) throw error
-      
+
       fetchTodos()
     } catch (error) {
       alert('Error deleting todo: ' + error.message)

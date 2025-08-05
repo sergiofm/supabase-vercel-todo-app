@@ -57,9 +57,7 @@ export default function Home() {
 
       if (error) throw error
       
-      setTodos(todos.map(todo => 
-        todo.id === id ? { ...todo, is_complete: !is_complete } : todo
-      ))
+      fetchTodos()
     } catch (error) {
       alert('Error updating todo: ' + error.message)
     }
@@ -74,7 +72,8 @@ export default function Home() {
         .eq('id', id)
 
       if (error) throw error
-      setTodos(todos.filter(todo => todo.id !== id))
+      
+      fetchTodos()
     } catch (error) {
       alert('Error deleting todo: ' + error.message)
     }
@@ -82,7 +81,7 @@ export default function Home() {
 
   return (
     <div className="container">
-      <h1>My Todo App</h1>
+      <h1>Vercel + Supabase Todo App</h1>
       <p>Built with Vercel + Supabase</p>
 
       {/* Add new todo */}
